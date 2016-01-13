@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include loyaltyapp1 *.css
+recursive-include loyaltyapp1 *.csv
+recursive-include loyaltyapp1 *.html
+recursive-include loyaltyapp1 *.ico
+recursive-include loyaltyapp1 *.js
+recursive-include loyaltyapp1 *.json
+recursive-include loyaltyapp1 *.md
+recursive-include loyaltyapp1 *.png
+recursive-include loyaltyapp1 *.py
+recursive-include loyaltyapp1 *.svg
+recursive-include loyaltyapp1 *.txt
+recursive-exclude loyaltyapp1 *.pyc
