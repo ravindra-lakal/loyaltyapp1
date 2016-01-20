@@ -427,7 +427,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2016-01-15 15:59:39.879818", 
+ "modified": "2016-01-18 16:31:38.578052", 
  "modified_by": "Administrator", 
  "module": "Loyaltyapp1", 
  "name": "Store", 
@@ -439,7 +439,7 @@
    "apply_user_permissions": 0, 
    "cancel": 0, 
    "create": 1, 
-   "delete": 1, 
+   "delete": 0, 
    "email": 1, 
    "export": 1, 
    "if_owner": 0, 
@@ -450,9 +450,9 @@
    "report": 1, 
    "role": "Cashier", 
    "set_user_permissions": 0, 
-   "share": 1, 
+   "share": 0, 
    "submit": 0, 
-   "write": 1
+   "write": 0
   }
  ], 
  "read_only": 0, 

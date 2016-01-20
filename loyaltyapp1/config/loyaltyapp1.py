@@ -91,4 +91,15 @@ def get_data():
 			]
 		},
 
-	]
+{
+	"label": _("Setup"),
+	"icon": "icon-cog",
+	"items": [
+		{
+			"type": "doctype",
+			"name": "Rule Engine",
+			"description": _("Default settings for selling transactions.")
+		},
+		]
+		},
+		]
