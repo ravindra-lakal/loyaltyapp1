@@ -17,3 +17,5 @@ class Order(Document):
 					factor=int(i.get('points_multiplication_factor'))
 					amount=int(self.amount)
 					frappe.errprint(factor*((amount*pointsawarded)/minamount))
+	def validate(arg):
+		pass
