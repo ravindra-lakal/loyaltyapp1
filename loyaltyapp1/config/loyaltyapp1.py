@@ -54,6 +54,11 @@ def get_data():
 			},
 			{
 				"type": "doctype",
+				"name": "Terminal",
+				"description": _("Terminal Details."),
+			},
+			{
+				"type": "doctype",
 				"name": "Style",
 				"description": _("Style Details."),
 			},
