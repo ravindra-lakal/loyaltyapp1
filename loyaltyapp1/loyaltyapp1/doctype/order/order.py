@@ -16,8 +16,10 @@ class Order(Document):
 					pointsawarded=int(i.get('points'))
 					factor=int(i.get('points_multiplication_factor'))
 					amount=int(self.amount)
-					frappe.errprint([a,factor])
 					points=(amount*pointsawarded)/minamount
 					a=factor*points
 					self.amount=amount
 					self.points_earned=a
+	def on_submit(self):
+		customer=frappe.get_doc("Customer",self.username)
+		frappe.errprint(customer)

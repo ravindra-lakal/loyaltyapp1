@@ -9,7 +9,7 @@ frm.set_value("cashier",frappe.user.name)
 frappe.ui.form.on("Product Details","quantity",function(frm,cdt,cdn){
   console.log("Hello")
   var d=locals[cdt][cdn];
-  
+
   d.total=d.mrp*d.quantity
   refresh_field("product_details")
   amount=amount+d.total
