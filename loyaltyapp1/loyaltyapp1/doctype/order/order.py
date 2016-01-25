@@ -22,4 +22,11 @@ class Order(Document):
 					self.points_earned=a
 	def on_submit(self):
 		customer=frappe.get_doc("Customer",self.username)
-		frappe.errprint(customer)
+
+
+		 #customer.set('Points Details',[])
+		n1 = customer.append('points_details', {})
+		n1.purchase_date=self.purchase_date
+		n1.poins_gained=self.points_earned
+		customer.total_points=self.points_earned
+		customer.save()
