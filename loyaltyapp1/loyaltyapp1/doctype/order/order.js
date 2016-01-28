@@ -21,3 +21,11 @@ frappe.ui.form.on("Product Details","quantity",function(frm,cdt,cdn){
     frm.set_value("amount",amount)
 
 });
+frappe.ui.form.on("Product Details", "product_details_remove", function(frm) {
+  console.log("item removed")
+
+  // console.log(amount)
+
+//frm.set_value("cashier",frappe.user.name)
+
+});
