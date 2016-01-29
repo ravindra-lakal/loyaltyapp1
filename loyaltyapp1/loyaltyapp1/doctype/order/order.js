@@ -21,8 +21,9 @@ frappe.ui.form.on("Product Details","quantity",function(frm,cdt,cdn){
     frm.set_value("amount",amount)
 
 });
-frappe.ui.form.on("Product Details", "product_details_remove", function(frm) {
-  console.log("item removed")
+frappe.ui.form.on("Product Details", "product_details_remove", function(frm,cdt,cdn) {
+  var d=locals[cdt][cdn];
+  console.log(d)
 
   // console.log(amount)
 
