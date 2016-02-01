@@ -7,6 +7,14 @@ import frappe
 from frappe.model.document import Document
 
 class Order(Document):
+	def on_update(self):
+		amount=0
+		for col in self.get("product_details"):
+			amount+=col.total
+		self.amount=amount
+
+
+
 	def before_submit(self):
 
 		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active"})
