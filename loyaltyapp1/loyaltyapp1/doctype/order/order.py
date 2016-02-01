@@ -7,8 +7,10 @@ import frappe
 from frappe.model.document import Document
 
 class Order(Document):
+	#total amount is now updated only after order is saved
 	def on_update(self):
 		amount=0
+		# self.get is used to access child table values in python script
 		for col in self.get("product_details"):
 			amount+=col.total
 		self.amount=amount
@@ -17,7 +19,8 @@ class Order(Document):
 
 	def before_submit(self):
 
-		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active"})
+		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active","docstatus":1})
+		# docstatus is 1 when document is submitted 
 		for i in a:
 			if i.get('rule_type')=="Loyalty Points":
 					minamount=int(i.get('amount'))
