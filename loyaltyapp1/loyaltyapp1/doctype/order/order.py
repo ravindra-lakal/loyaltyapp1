@@ -40,11 +40,18 @@ class Order(Document):
 		 #customer.set('Points Details',[])
 		n1 = customer.append('points_details', {})
 		n1.purchase_date=self.purchase_date
+		n1.points_gained=self.points_earned
+		#customer.total_points=self.points_earned
+		customer.save()
+		# for raw in customer.get("points_details"):
+		# 	frappe.errprint(raw.points_gained)
+		# 	now+=int(raw.points_gained)
+		# customer.total_points=now
+
 		n1.poins_gained=self.points_earned
 		#customer.total_points=self.points_earned
 		customer.save()
-		for raw in customer.get("points_details"):
-			frappe.errprint(raw.purchase_date)
+		#for raw in customer.get("points_details"):
+			#frappe.errprint(raw.purchase_date)
 			# now+=int(raw.points_gained)
-		customer.total_points=now
-#points_gained is used just for experimental purpose actually a coloum called total points will be added in place of points_gained
+		#customer.total_points=now
