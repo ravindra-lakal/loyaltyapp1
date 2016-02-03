@@ -473,6 +473,7 @@
    "search_index": 0, 
    "set_only_once": 0, 
    "unique": 0
+<<<<<<< HEAD
   }, 
   {
    "allow_on_submit": 0, 
@@ -498,6 +499,8 @@
    "search_index": 0, 
    "set_only_once": 0, 
    "unique": 0
+=======
+>>>>>>> 16fd485e23f71c9cfa053500cb1322fe70e564ca
   }
  ], 
  "hide_heading": 0, 
@@ -509,7 +512,11 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
+<<<<<<< HEAD
  "modified": "2016-02-02 15:39:57.448180", 
+=======
+ "modified": "2016-02-02 14:53:51.623157", 
+>>>>>>> 16fd485e23f71c9cfa053500cb1322fe70e564ca
  "modified_by": "Administrator", 
  "module": "Loyaltyapp1", 
  "name": "Order", 
