@@ -5,7 +5,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
-
+from frappe import _
 class Order(Document):
 	#total amount is now updated only after order is saved
 	def on_update(self):
@@ -14,6 +14,7 @@ class Order(Document):
 		for raw in self.get("product_details"):
 			amount+=int(raw.total)
 		self.amount=amount
+		self.repeatitemcheck()
 
 
 
@@ -55,3 +56,10 @@ class Order(Document):
 			#frappe.errprint(raw.purchase_date)
 			# now+=int(raw.points_gained)
 		#customer.total_points=now
+	def repeatitemcheck(self):
+		l=[]
+		for item in self.get('product_details'):
+			l.append(item.ean)
+		uniquel=set(l)
+		if len(l)!=len(uniquel) :
+			frappe.throw(_("Same item has been entered multiple times."))

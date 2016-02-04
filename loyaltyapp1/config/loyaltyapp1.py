@@ -103,7 +103,7 @@ def get_data():
 		{
 			"type": "doctype",
 			"name": "Rule Engine",
-			"description": _("Default settings for selling transactions.")
+			"description": _("Rule Engine for points allocation and Redemption.")
 		},
 		]
 		},
