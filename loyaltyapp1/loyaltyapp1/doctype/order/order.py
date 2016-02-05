@@ -7,8 +7,8 @@ import frappe
 from frappe.model.document import Document
 from frappe import _
 class Order(Document):
-	#total amount is now updated only after order is saved
-	def on_update(self):
+	def validate(self):
+		#frappe.errprint("Validate occured")
 		amount=0
 		# self.get is used to access child table values in python script
 		for raw in self.get("product_details"):
@@ -17,8 +17,11 @@ class Order(Document):
 		self.repeatitemcheck()
 
 
-
+	#total amount is now updated only after order is saved
+	def on_update(self):
+		pass
 	def before_submit(self):
+		#check if the amount of Points are available if method is points
 
 		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active","docstatus":1})
 		# docstatus is 1 when document is submitted
@@ -33,33 +36,34 @@ class Order(Document):
 					self.amount=amount
 					self.points_earned=a
 					self.doc_no=self.name
+		
 	def on_submit(self):
 		now=0
 		customer=frappe.get_doc("Customer",self.username)
-
-
 		 #customer.set('Points Details',[])
 		n1 = customer.append('points_details', {})
 		n1.purchase_date=self.purchase_date
 		n1.points_gained=self.points_earned
-		#customer.total_points=self.points_earned
-		customer.save()
-		# for raw in customer.get("points_details"):
-		# 	frappe.errprint(raw.points_gained)
-		# 	now+=int(raw.points_gained)
-		# customer.total_points=now
+		if self.checkmethod()==0:
+			n1.points_consumed=0
 
-		n1.poins_gained=self.points_earned
-		#customer.total_points=self.points_earned
 		customer.save()
-		#for raw in customer.get("points_details"):
-			#frappe.errprint(raw.purchase_date)
-			# now+=int(raw.points_gained)
-		#customer.total_points=now
 	def repeatitemcheck(self):
 		l=[]
+		# print "****************"
+		# print self.get('product_details')
+		# print "****************"
 		for item in self.get('product_details'):
 			l.append(item.ean)
+		#frappe.errprint(item.ean)
 		uniquel=set(l)
 		if len(l)!=len(uniquel) :
 			frappe.throw(_("Same item has been entered multiple times."))
+	def checkmethod(self):
+		l1=[]
+		for raw in self.get("payment_method"):
+			l1.append(raw.method)
+		if "Points" in l1:
+			return 1
+		else:
+			return 0
