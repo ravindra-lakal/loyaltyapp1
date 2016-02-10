@@ -45,6 +45,8 @@ class Order(Document):
 		n1.points_gained=self.points_earned
 		if self.checkmethod()==0:
 			n1.points_consumed=0
+		else:
+			n1.points_consumed=self.checkmethod()
 
 		customer.save()
 	def repeatitemcheck(self):
@@ -63,7 +65,7 @@ class Order(Document):
 		for raw in self.get("payment_method"):
 			l1.append(raw.method)
 		if "Points" in l1:
-			return 1
+			return int(raw.points)
 		else:
 			return 0
 	def pointscheck(self):
@@ -77,3 +79,6 @@ class Order(Document):
 					#frappe.errprint("#####True######")
 
 					frappe.throw(_("Customer doesn't have enough points for redumption reduce the points and try again"))
+# @frappe.whitelist()
+# 	def make_return(source_name,target_doc=None):
+		

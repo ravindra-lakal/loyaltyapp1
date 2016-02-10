@@ -14,5 +14,8 @@ class Customer(Document):
 		total_points=0
 		for raw in self.get("points_details"):
 			points_gained+=int(raw.points_gained)
-			#points_consumed+=int(raw.points_consumed)
+			points_consumed+=int(raw.points_consumed)
 		self.total_points=points_gained - points_consumed
+		self.pos_customer_id=self.name
+	def checkusername(self):
+		frappe.db.get_value("Customer",self.username,"username")
