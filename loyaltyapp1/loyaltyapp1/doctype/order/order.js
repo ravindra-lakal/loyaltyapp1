@@ -3,7 +3,6 @@ cur_frm.add_fetch("cashier", "store", "store_id");
   var amount=0
 frappe.ui.form.on("Order", "onload", function(frm) {
 //  console.log("Page loaded")
-cur_frm.add_custom_button(__('Return'), this.make_return).addClass("btn-primary");
 
 //  console.log(amount)
 
@@ -40,12 +39,16 @@ frm.set_value("purchase_date",frappe.datetime.now_datetime())
 
 });
 frappe.ui.form.on("Payment Method", "generate_otp", function(frm,cdt,cdn) {
-// console.log("Hi")
+//gets the customerid and username from server side
+return frappe.call({
+  method:"loyaltyapp1.api.otp",
+  callback:function(r)
+  {
+  console.log(r.message)
+  },
+})
 
-
-
-
-});
+ });
 // frappe.ui.form.on("Order", "refresh", function(frm) {
 // //  console.log("Page loaded")
 // cur_frm.add_custom_button(__('Return'), make_return).addClass("btn-primary");

@@ -9,9 +9,10 @@ from frappe import _
 
 class Customer(Document):
 	def validate(self):
-		#checks if the mobile number is unique
-		a=frappe.db.get_value("Customer",{"username":self.username},"username")
-		if a==self.username:
+		#checks if the mobile number is unique if email and mobile number are same then it allows to save the customer
+		username=frappe.db.get_value("Customer",{"username":self.username},"username")
+		email_address=frappe.db.get_value("Customer",{"username":self.username},"email_address")
+		if username==self.username and email_address!=self.email_address:
 			frappe.throw(_("Username already used please enter diffrent one"))
 		#counts total points on each update
 		points_gained=0
