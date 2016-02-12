@@ -44,11 +44,24 @@ return frappe.call({
   method:"loyaltyapp1.api.otp",
   callback:function(r)
   {
-  console.log(r.message)
+    d=locals[cdt][cdn];
+    d.confirm_otp=r.message
+    refresh_field("payment_method")
+  //console.log(r.message)
   },
 })
 
  });
+ frappe.ui.form.on("Payment Method", "points", function(frm,cdt,cdn) {
+     d=locals[cdt][cdn];
+ if (d.otp!=d.confirm_otp)
+ {
+   console.log("Incorrect OTP")
+frappe.msgprint(_("Please enter correct otp"))
+ }
+  });
+
+
 // frappe.ui.form.on("Order", "refresh", function(frm) {
 // //  console.log("Page loaded")
 // cur_frm.add_custom_button(__('Return'), make_return).addClass("btn-primary");
