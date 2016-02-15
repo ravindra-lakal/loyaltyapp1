@@ -42,6 +42,9 @@ frappe.ui.form.on("Payment Method", "generate_otp", function(frm,cdt,cdn) {
 //gets the customerid and username from server side
 return frappe.call({
   method:"loyaltyapp1.api.otp",
+  args:{number:frm.doc.username,
+
+  },
   callback:function(r)
   {
     d=locals[cdt][cdn];

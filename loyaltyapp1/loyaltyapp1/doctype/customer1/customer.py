@@ -7,11 +7,11 @@ import frappe
 from frappe.model.document import Document
 from frappe import _
 
-class Customer(Document):
+class Customer1(Document):
 	def validate(self):
 		#checks if the mobile number is unique if email and mobile number are same then it allows to save the customer
-		username=frappe.db.get_value("Customer",{"username":self.username},"username")
-		email_address=frappe.db.get_value("Customer",{"username":self.username},"email_address")
+		username=frappe.db.get_value("Customer1",{"username":self.username},"username")
+		email_address=frappe.db.get_value("Customer1",{"username":self.username},"email_address")
 		if username==self.username and email_address!=self.email_address:
 			frappe.throw(_("Username already used please enter diffrent one"))
 		#counts total points on each update
@@ -23,7 +23,6 @@ class Customer(Document):
 				points_gained+=int(raw.points_gained)
 			else:
 				raw.points_gained=0
-
 
 
 			points_consumed+=int(raw.points_consumed)
