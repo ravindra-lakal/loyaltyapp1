@@ -47,17 +47,20 @@ return frappe.call({
     d=locals[cdt][cdn];
     d.confirm_otp=r.message
     refresh_field("payment_method")
-  //console.log(r.message)
+    console.log(r.message)
   },
 })
 
  });
- frappe.ui.form.on("Payment Method", "points", function(frm,cdt,cdn) {
+ frappe.ui.form.on("Payment Method", "otp", function(frm,cdt,cdn) {
+   //console.log("hi");
      d=locals[cdt][cdn];
+     //console.log(d.otp);
+     //console.log(d.otp);
  if (d.otp!=d.confirm_otp)
  {
-   console.log("Incorrect OTP")
-frappe.msgprint(_("Please enter correct otp"))
+   //console.log("Incorrect OTP")
+frappe.msgprint(__("Please enter correct otp"))
  }
   });
 
