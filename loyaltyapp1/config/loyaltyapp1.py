@@ -84,7 +84,7 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
-					"name": "Customer",
+					"name": "Customer1",
 					"description": _("Customer database."),
 				},
 				{

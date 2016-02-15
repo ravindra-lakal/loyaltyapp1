@@ -40,7 +40,7 @@ class Order(Document):
 
 	def on_submit(self):
 		now=0
-		customer=frappe.get_doc("Customer",self.customer_id)
+		customer=frappe.get_doc("Customer1",self.customer_id)
 		 #customer.set('Points Details',[])
 		n1 = customer.append('points_details', {})
 		n1.purchase_date=self.purchase_date
@@ -71,7 +71,7 @@ class Order(Document):
 		else:
 			return 0
 	def pointscheck(self):
-		customer=frappe.get_doc("Customer",self.customer_id)
+		customer=frappe.get_doc("Customer1",self.customer_id)
 		tpoint=customer.total_points
 		#frappe.errprint(tpoint)
 		for raw in self.get("payment_method"):
