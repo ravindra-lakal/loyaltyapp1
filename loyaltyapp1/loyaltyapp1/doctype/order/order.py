@@ -28,6 +28,8 @@ class Order(Document):
 						frappe.throw(_("You have not entered otp"))
 					if raw.points==None:
 						frappe.throw(_("You have not entered points "))
+					if raw.otp!=self.otp:
+							frappe.throw(_("Please enter correct otp "))
 
 
 

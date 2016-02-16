@@ -61,12 +61,12 @@ return frappe.call({
      d=locals[cdt][cdn];
      //console.log(d.otp);
      //console.log(d.otp);
- if (d.otp!=d.confirm_otp)
- {
-   //console.log("Incorrect OTP")
-   frappe.model.set_value(cdt,cdn,"otp","")
-frappe.msgprint(__("Please enter correct otp"))
- }
+//  if (d.otp!=d.confirm_otp)
+//  {
+//    //console.log("Incorrect OTP")
+//    frappe.model.set_value(cdt,cdn,"otp","")
+// frappe.msgprint(__("Please enter correct otp"))
+//  }
   });
   //  frappe.ui.form.on("Payment Method", "points", function(frm,cdt,cdn) {
   //     d=locals[cdt][cdn];
