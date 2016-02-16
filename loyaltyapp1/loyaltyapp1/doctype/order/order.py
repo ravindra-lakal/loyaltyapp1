@@ -11,8 +11,6 @@ class Order(Document):
 		#frappe.errprint("Validate occured")
 		amount=0
 		# self.get is used to access child table values in python script
-
-
 		for raw in self.get("product_details"):
 			amount+=int(raw.total)
 		self.amount=amount
@@ -21,7 +19,19 @@ class Order(Document):
 
 	#total amount is now updated only after order is saved
 	def on_update(self):
-		pass
+		if self.get("payment_method"):
+			for raw in self.get("payment_method"):
+				if raw.method=="Points":
+					if raw.otp==None and raw.points==None:
+						frappe.throw(_("You have not entered otp and points "))
+					if raw.otp==None:
+						frappe.throw(_("You have not entered otp"))
+					if raw.points==None:
+						frappe.throw(_("You have not entered points "))
+
+
+
+
 	def before_submit(self):
 		self.pointscheck()
 		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active","docstatus":1})
@@ -81,7 +91,12 @@ class Order(Document):
 					#frappe.errprint("#####True######")
 
 					frappe.throw(_("Customer doesn't have enough points for redumption reduce the points and try again"))
+
+
+
 # @frappe.whitelist()
 # 	def getusername():
 # 		customer=frappe.get_doc("Customer",custumer_id)
 # 		return [custumer.username,custumer.]
+	# def on_update_after_submit(self):
+	# 	# frappe.errprint(self.points_earned)

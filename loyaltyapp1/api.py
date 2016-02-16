@@ -8,7 +8,8 @@ def otp(number):
     size=6
     chars=string.ascii_uppercase + string.digits + string.ascii_lowercase
     code=''.join(random.choice(chars) for _ in range(size))
+    text="Your otp is %s"%code
     a=[]
     a.append(number)
-    send_sms(a,code)
+    # send_sms(a,text)
     return code
