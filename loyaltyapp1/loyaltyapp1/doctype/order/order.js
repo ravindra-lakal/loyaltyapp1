@@ -43,6 +43,7 @@ frappe.ui.form.on("Payment Method", "generate_otp", function(frm,cdt,cdn) {
 return frappe.call({
   method:"loyaltyapp1.api.otp",
   args:{number:frm.doc.username,
+        docname:cur_frm.docname,
 
   },
   callback:function(r)
