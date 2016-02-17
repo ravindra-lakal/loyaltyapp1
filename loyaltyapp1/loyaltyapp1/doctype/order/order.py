@@ -36,6 +36,7 @@ class Order(Document):
 
 	def before_submit(self):
 		self.pointscheck()
+		self.statuscheck()
 		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active","docstatus":1})
 		# docstatus is 1 when document is submitted
 		for i in a:
@@ -49,6 +50,7 @@ class Order(Document):
 					self.amount=amount
 					self.points_earned=a
 					self.doc_no=self.name
+
 
 	def on_submit(self):
 		now=0
@@ -93,6 +95,21 @@ class Order(Document):
 					#frappe.errprint("#####True######")
 
 					frappe.throw(_("Customer doesn't have enough points for redumption reduce the points and try again"))
+	def statuscheck(self):
+		grandtotal=0
+		for raw in self.get("payment_method"):
+			if raw.method=="Points":
+				grandtotal+=int(raw.points)
+			if raw.method=="COD"or raw.method=="CC":
+				grandtotal+=int(raw.amount)
+		if int(grandtotal)==int(self.amount):
+			self.status="Completed"
+		elif int(grandtotal)<int(self.amount):
+			self.status="Incomplete"
+			frappe.throw(_("Can't submit payment incomplete"))
+
+
+
 
 
 
