@@ -8,6 +8,7 @@ from frappe.model.document import Document
 from frappe import _
 class Order(Document):
 	def validate(self):
+		# print "in validate"
 		#frappe.errprint("Validate occured")
 		amount=0
 		# self.get is used to access child table values in python script
@@ -19,6 +20,7 @@ class Order(Document):
 
 	#total amount is now updated only after order is saved
 	def on_update(self):
+		print "in update"
 		if self.get("payment_method"):
 			for raw in self.get("payment_method"):
 				if raw.method=="Points":
@@ -35,12 +37,15 @@ class Order(Document):
 
 
 	def before_submit(self):
-		self.pointscheck()
-		self.statuscheck()
-		a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active","docstatus":1})
-		# docstatus is 1 when document is submitted
-		for i in a:
-			if i.get('rule_type')=="Loyalty Points":
+		if self.type=="Sales":
+			print "in before submit"
+			self.pointscheck()
+			self.statuscheck()
+			a=frappe.get_all("Rule Engine", fields=["rule_type","amount","points ","points_multiplication_factor"], filters={"status":"Active","docstatus":1})
+			# docstatus is 1 when document is submitted
+			for i in a:
+				if i.get('rule_type')=="Loyalty Points":
+					print "in loyality points foor loop"
 					minamount=int(i.get('amount'))
 					pointsawarded=int(i.get('points'))
 					factor=int(i.get('points_multiplication_factor'))
@@ -53,6 +58,7 @@ class Order(Document):
 
 
 	def on_submit(self):
+		print "in on submit"
 		now=0
 		customer=frappe.get_doc("Customer",self.customer_id)
 		 #customer.set('Points Details',[])
@@ -107,6 +113,11 @@ class Order(Document):
 		elif int(grandtotal)<int(self.amount):
 			self.status="Incomplete"
 			frappe.throw(_("Can't submit payment incomplete"))
+	def on_update_after_submit(self):
+		print "in update after submit"
+		# self.indicator_color="orange"
+		# self.indicator_title="Return"
+		# print self.indicator_title
 
 
 
